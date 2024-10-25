@@ -411,7 +411,7 @@ app.register_blueprint(widgets_blue)
 
 # class
 class Message(TypedDict):
-    role: Literal["admin"] | Literal["user"]
+    role: str
     content: str
 
 # functions

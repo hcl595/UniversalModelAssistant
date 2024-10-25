@@ -7,7 +7,7 @@ import requests
 import json
 
 class Message(TypedDict):
-    role: Literal["admin"] | Literal["user"]
+    role: str
     content: str
 
 def create_session(comment:str, model_id:int):

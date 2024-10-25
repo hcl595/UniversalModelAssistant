@@ -19,7 +19,7 @@ def setup():
             logger.info("create config.json")
             data = {
                 "package": {
-                    "Version" : "0.2.2.beta",
+                    "Version" : "0.3.1.alpha",
                 },
                 "BaseConfig": {
                     "Theme": "light",
