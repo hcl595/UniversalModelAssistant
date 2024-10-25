@@ -311,8 +311,9 @@ function change_tab(id){
     var now = $(".current").val()
     $(".current").removeClass("current")
     $("#Tab"+id).addClass("current")
-    $('#'+now).fadeOut(100)
-    $('#'+id).fadeIn(110)
+    $('#'+now).fadeOut(1)
+    $('#'+id).fadeIn(1)
+    alert(id)
     smoothScroll("output-"+id);
 }
 
@@ -761,10 +762,10 @@ function refresh_website(){
 }
 
 function setup_website(){
-    Refresh_ModelList();
     Refresh_Tabs();
-    load_active_widgets();
     load_widgets();
+    Refresh_ModelList();
+    load_active_widgets();
     load_settings();
     Get_Version();
     hljs.highlightAll();
@@ -832,7 +833,6 @@ function Refresh_ModelList(){
                         <span><div class="model_title">'+ data[i].name +'</div></span>\
                         <span><div class="model_subtitle">'+ data[i].url +'</div></span>\
                     </div>\
-                    <i class="fa fa-bars"></i>\
                     <i class="fa fa-info"\
                     id="model_'+ data[i].id +'" \
                     model_type="'+ data[i].type +'"  \
@@ -1207,3 +1207,7 @@ function _css(el, prop, val) {
         }
     }
 }
+
+window.onload = function() {
+
+  }

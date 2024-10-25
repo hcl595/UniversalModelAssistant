@@ -1,4 +1,4 @@
-# main.py | Intellifusion Version 0.2.0(2023082412000) Developer Alpha
+# main.py | Intellifusion Version 0.3.0(2024102412000) Developer Alpha
 # headers
 from setup import setup
 setup()
@@ -378,7 +378,7 @@ def Prompts():
         keywords = jieba.lcut_for_search(userinput)
         keywords = " ".join(keywords)
         result = process.extract(
-            keywords, prompt.keys(), limit=5, scorer=fuzz.partial_token_sort_ratio
+            keywords, prompt.keys(), limit=3, scorer=fuzz.partial_token_sort_ratio
         )
         result = {t:prompt[t] for (t,_) in result}
     else:

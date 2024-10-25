@@ -21,7 +21,7 @@ body {
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-  background-color: #68bef7;
+  background-color: #e6f5ff;
 }
 
 /* icon Bar */
@@ -33,7 +33,7 @@ body {
   border-radius: 12px;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  background: rgba(230, 235, 240, .7);
+  background: hsl(210, 25%, 9%);
   border: 2px solid rgba(230, 235, 240, .7);
   box-shadow: 0 0 30px rgba(0, 0, 0, .05);
   transition: .6s cubic-bezier(.8, .3, .3, .8);
@@ -56,7 +56,7 @@ body {
 }
 
 .light nav .brand p {
-    color: #505257;
+    color: #ffffff;
     font-weight: 500;
     font-style: italic;
     text-align: left;
@@ -65,7 +65,7 @@ body {
 }
 
 .light nav .brand p span {
-    color: #3c3e43;
+    color: hsl(223, 6%, 85%);
     display: block;
     font-size: 26px;
     font-style: normal;
@@ -120,7 +120,7 @@ body {
   }
 
   .light nav .list span {
-    color: #505257;
+    color: #dadfee;
     font-size: 18px;
     font-weight: 500;
     margin: 0 0 0 12px;
@@ -181,10 +181,10 @@ nav:hover .list li:nth-child(8) span {
 .light .contentwrap {
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.212);
+  /* background-color: rgba(255, 255, 255, 0.212); */
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 2px solid rgba(230, 235, 240, .3);
+  /* border: 2px solid rgba(230, 235, 240, .3); */
   border-radius: 2%;
   transition: .6s cubic-bezier(.8, .3, .3, .8);
 }
@@ -200,18 +200,17 @@ nav:hover .list li:nth-child(8) span {
   border-radius: 1%;
 }
 .light ul.tab {
-  border-radius: 15px;
   border-bottom: 1px solid #ccc;
-  padding-bottom:1px;
   height: 40px;
   line-height: 30px;
   color: #696969;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .light ul.tab li {
   border-radius: 10%;
   float: left;
   cursor: pointer;
-  padding: 0px;
 }
 .light ul.tab li.li {
   padding: 0px 25px 0px;
@@ -225,6 +224,11 @@ nav:hover .list li:nth-child(8) span {
   border-left: 1px solid #C5D0DC;
   border-bottom: 1px solid #C5D0DC;
   background-color: rgba(0, 0, 0, .05);
+  transition: 0.3s;
+}
+.light ul.tab li.li:hover {
+
+  scale: 1.02;
 }
 .light ul.tab li.current {
   border-top-left-radius: 20px;
@@ -234,7 +238,6 @@ nav:hover .list li:nth-child(8) span {
   font-size: 13px;
   color: #343434;
   background:#ffffff4f;
-  
 }
 .light ul.tab li.li:last-child{border-right: 1px solid #C5D0DC;}
 
@@ -247,7 +250,7 @@ nav:hover .list li:nth-child(8) span {
   display: flex;
   overflow: hidden;
   flex-flow: column;
-  background-color: rgba(230, 230, 230, 0.406);
+  /* background-color: rgba(230, 230, 230, 0.406); */
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom-left-radius: 15px;
@@ -433,16 +436,19 @@ textarea{
   margin-bottom: auto;
 }
 .prompt_container{
-  width: 100%;
-  height: 50px;
+  min-width: 100%;
+  /* max-width: 100%; */
+  min-height: 50px;
+  max-height: 100px;
   display: flex;
   overflow: auto;
-  /* flex-flow:nowrap; */
-  justify-content: center;
+  flex-flow:nowrap;
+  justify-content: right;
 }
 .prompt_container .prompt{
   margin-top: auto;
   margin-bottom: auto;
+  transition: 0.3s;
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 5px;
@@ -451,7 +457,11 @@ textarea{
   box-shadow: 5px 5px 10px 0px rgb(165, 165, 165);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+
 }
+.prompt:hover {
+  scale: 1.03;
+} 
 
 /* Loading */
 .loadingOne{
@@ -938,7 +948,7 @@ textarea{
   border-top-right-radius: 15px;
 }
 .light .main .chat{
-  border:2px solid rgba(255, 255, 255, 0.363);
+  /* border:2px solid rgba(255, 255, 255, 0.363); */
   border-radius: 15px;
   width:60px;
   height:100%;
@@ -1432,21 +1442,21 @@ pre {
 .dark ul.tab li {
   float: left;
   cursor: pointer;
-  border: 0.1px solid rgb(61, 61, 61);
+  border: 0.1px solid rgb(53, 53, 53);
 }
 .dark ul.tab li.li {
   padding: 0px 25px 0px;
   font-size: 13px;
   height: 40px;
-  background:rgb(31, 31, 31);
-  color: #909090;
+  background:#484848;
+  color: #ffffff;
 }
 .dark ul.tab li.current {
   border-bottom: 0px;
-  border-top: 2px solid hsl(170, 71%, 60%);
+  /* border-top: 2px solid hsl(170, 71%, 60%); */
   font-size: 13px;
   color: #ffffff;
-  background:#484848;
+  background:rgb(31, 31, 31);
 }
 .dark ul.tab li.li:last-child{border-right: 1px solid rgb(61, 61, 61);}
 
