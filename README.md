@@ -9,7 +9,6 @@
 
 [![star](https://gitee.com/argonserver/IntelliFusion/badge/star.svg?theme=gray)](https://gitee.com/argonserver/IntelliFusion/stargazers)</div>
 ----
-## 目前程序出现错误，暂时无法使用。我们将在后续版本完善它
 ## 关于IntelliFusion
 #### intelliFusion的性质
 一个开源的、高自由度、支持多种模型库的AI模型库的使用平台。为方便不通用库的使用，我们拥有用户可自行导入不同的模型库。
