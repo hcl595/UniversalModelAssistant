@@ -16,7 +16,7 @@ OPTIONS = {
         'plist':{
             'CFBundleName'   : 'Intellifusion',     # 应用名
                     'CFBundleDisplayName': 'IntelliFusion', # 应用显示名
-                    'CFBundleVersion': '0.2.1',      # 应用版本号
+                    'CFBundleVersion': '0.3.1',      # 应用版本号
                     'CFBundleIdentifier' : 'IntelliFusion', # 应用包名、唯一标识
                     'NSHumanReadableCopyright': 'Copyright © 2023 Argon.Inc. All rights reserved.', # 可读版权
                         },
