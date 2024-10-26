@@ -9,7 +9,8 @@ from setuptools import setup
 
 APP = ['./src_macOS/client.py']
 # APP = []
-DATA_FILES = ['./res/intellifusion_sketch_1.icns','./src_macOS/templates/','./src_macOS/static/','./src_macOS/config.py','./src_macOS/data.py','./src_macOS/setup.py','./src_macOS/widgets/','./src_macOS/prompt/','./src_macOS/dicts']
+# DATA_FILES = ['./res/intellifusion_sketch_1.icns','./src_macOS/templates/','./src_macOS/static/','./src_macOS/config.py','./src_macOS/data.py','./src_macOS/setup.py','./src_macOS/widgets/','./src_macOS/prompt/','./src_macOS/dicts']
+DATA_FILES = ['./res/intellifusion_sketch_1.icns','./src_macos/']
 # DATA_FILES = []
 OPTIONS = {
         'iconfile':'./res/intellifusion_sketch_1.icns',
@@ -22,8 +23,8 @@ OPTIONS = {
                         },
             'includes': ['flask','flaskwebgui','jieba','loguru',
                         'openai','peewee','requests',
-                        'thefuzz','validators','cchardet'],
-            'packages': ['mistune','./src_macOS/widgets/'],
+                        'thefuzz','validators','cchardet','widgets'],
+            'packages': ['mistune'],
              }
 
 setup(
