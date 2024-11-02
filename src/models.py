@@ -1,6 +1,7 @@
 from data import Models, Sessions, History
 from peewee import fn
 import openai
+from zhipuai import ZhipuAI,ZhipuAIError
 from typing import Literal, TypedDict
 import mistune
 import requests
@@ -88,6 +89,57 @@ def request_OpenAI(SessionID: int, Userinput: str,stream: bool = True):
         UserInput = Userinput,
         response = response_out,
     )
+
+def request_ZhipuAI(SessionID: int, Userinput: str,stream: bool = True):
+    '''
+    SessionID 会话在数据库中的ID
+    Userinput 用户输入的内容
+    stream    是否需要流式传输
+    '''
+    if SessionID is None or Userinput is None:
+        raise ValueError
+    response = ""
+    try:
+        Model_ID = Models.get(Models.id == Sessions.get(Sessions.id == SessionID).model_id)
+    except:
+        raise Models.get.error
+    ZhipuAI.api_base = (Model_ID.url)
+    messages = []
+    for r in History.select().where(History.session_id == SessionID):
+        r: History
+        assert isinstance(r.UserInput, str)
+        assert isinstance(r.response, str)
+        question: Message = {"role": "user", "content": r.UserInput}
+        response_model: Message = {"role": "assistant", "content": r.response}
+        messages.append(question)
+        messages.append(response_model)
+    question: Message = {"role": "user", "content": Userinput}
+    messages.append(question)
+    client = ZhipuAI(api_key = Model_ID.api_key)
+    for chunk in client.chat.completions.create(
+        model=Model_ID.name,
+        messages=messages,
+        stream=True,
+        temperature=0,
+    ):
+        if stream == True:
+            if hasattr(chunk.choices[0].delta, "content"):
+                print(chunk.choices[0].delta.content, end="", flush=True)
+                response = response + chunk.choices[0].delta.content
+                response_out = mistune.html(response)
+                yield response_out
+        else:
+            if hasattr(chunk.choices[0].delta, "content"):
+                print(chunk.choices[0].delta.content, end="", flush=True)
+                response = response + chunk.choices[0].delta.content
+                response = mistune.html(response)
+            return response
+    History.create(
+        session_id = SessionID,
+        UserInput = Userinput,
+        response = response_out,
+    )
+
 
 def request_Json(SessionID: int, Userinput: str):
     if SessionID is None or Userinput is None:

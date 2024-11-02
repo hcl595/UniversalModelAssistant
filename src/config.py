@@ -6,7 +6,7 @@ from typing import Any
 from setup import APP_DIR
 DATA_DIR = APP_DIR / "data"
 PROM_DIR = APP_DIR / "prompt"
-CONFIG_FILE = DATA_DIR / "config.0.2.2.beta.json"
+CONFIG_FILE = DATA_DIR / "config.0.3.2.beta.json"
 
 
 class Settings:

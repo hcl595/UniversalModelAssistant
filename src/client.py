@@ -17,6 +17,7 @@ from tkinter.filedialog import askopenfilename
 
 import jieba
 import openai
+import zhipuai
 import psutil
 import validators
 from flask import Flask, stream_with_context, json, jsonify, render_template, request
@@ -59,12 +60,20 @@ def root():
 def request_models_stream():
     InputInfo = request.form.get("userinput")
     InputModel = request.form["modelinput"]
+    print(InputModel,InputInfo)
     if Models.get(Models.id == Sessions.get(Sessions.id == InputModel).model_id).type == "OpenAI":
         try:
             Model_response = request_OpenAI(SessionID=InputModel, Userinput=InputInfo, stream=True)
             for r in Model_response:
                 yield r
         except openai.error.AuthenticationError:
+            yield "Check Your API Key"
+    elif Models.get(Models.id == Sessions.get(Sessions.id == InputModel).model_id).type == "ZhipuAI":
+        try:
+            Model_response = request_ZhipuAI(SessionID=InputModel, Userinput=InputInfo, stream=True)
+            for r in Model_response:
+                yield r
+        except ZhipuAIError.AuthenticationError:
             yield "Check Your API Key"
     else:
         r = request_Json(SessionID=InputModel, Userinput=InputInfo,)
