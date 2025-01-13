@@ -29,7 +29,7 @@ from peewee import fn
 
 from config import Prompt, Settings
 from data import History, Models, Widgets, Sessions, APIs
-from LunaExtractor import extract_codeblock
+from LunaExtractor import extract_codeblock, write_pyFile
 from models import *
 
 pool = ThreadPoolExecutor()
@@ -41,6 +41,7 @@ from setup import APP_DIR
 DATA_DIR = APP_DIR / "data"
 DICT_DIR = APP_DIR / "dicts" / "dict.txt"
 LOG_FILE = DATA_DIR / "models.log"
+LUNA_FILE = APP_DIR / "LunaAutoSetup.py"
 
 # setup
 jieba.set_dictionary(DICT_DIR)
@@ -337,9 +338,9 @@ def edit_widgets():
             try:
                 w = Widgets.get(Widgets.id == widgets_id)
                 w.delete_instance()
-                return jsonify({"response": True, "message": "更改成功"})
+                return jsonify({"response": True, "message": "删除成功"})
             except:
-                return jsonify({"response": False, "message": "更改失败"})
+                return jsonify({"response": False, "message": "删除失败"})
 
 
 @app.post("/EditWidgetsOrder")
@@ -357,48 +358,45 @@ def GetAPIs():
     logger.debug(APIJson)
     return jsonify(APIJson)
 
-
 @app.post("/editAPIs")
 def edit_APIs():
     APIs_id = request.form.get("id")
     APIs_name = request.form.get("name")
     APIs_url = request.form.get("url")
-    response = requests.get(APIs_url)
-    codeblocks = extract_codeblock(response.text)
-    with open("./LunaModels.py", "a") as f:
-        for cb in codeblocks:
-            f.write(cb + "\n")
-            f.write(f"# {"-"*30}\n\n")
-
-    if APIs_id == "-1":
+    print("sss",APIs_id, APIs_name,)
+    if request.form.get("operation") == "edit":
         try:
-            w = APIs(
-                requestFunctionName = APIs_name,
-            )
-            w.save()
-            return jsonify({"response": True, "message": "添加成功"})
+            u = APIs.update({
+                APIs.requestFunctionName: APIs_name,
+            }).where(APIs.id == APIs_id)
+            u.execute()
+            return jsonify({"response": True, "message": "更改成功"})
         except:
-            return jsonify({"response": False, "message": "添加失败"})
-    # else:
-    #     if request.form.get("operation") == "edit":
-    #         try:
-    #             u = Widgets.update({
-    #                 Widgets.widgets_name: widgets_name,
-    #                 Widgets.widgets_url: widgets_url,
-    #                 Widgets.available: available,
-    #                 Widgets.size: widgets_size,
-    #             }).where(Widgets.id == widgets_id)
-    #             u.execute()
-    #             return jsonify({"response": True, "message": "更改成功"})
-    #         except:
-    #             return jsonify({"response": False, "message": "更改失败"})
-    #     elif request.form.get("operation") == "del":
-    #         try:
-    #             w = Widgets.get(Widgets.id == widgets_id)
-    #             w.delete_instance()
-    #             return jsonify({"response": True, "message": "更改成功"})
-    #         except:
-    #             return jsonify({"response": False, "message": "更改失败"})
+            return jsonify({"response": False, "message": "更改失败"})
+    elif request.form.get("operation") == "del":
+        try:
+            w = APIs.get(APIs.id == APIs_id)
+            w.delete_instance()
+            return jsonify({"response": True, "message": "删除成功"})
+        except:
+            return jsonify({"response": False, "message": "删除失败"})
+
+
+@app.post("/AddAPIs")
+def add_APIs():
+    APIName = request.form.get("name")
+    APIUrl = request.form.get("url")
+    write_pyFile(APIUrl,LUNA_FILE)
+    try:
+        APIs.create(
+            requestFunctionName = APIName,
+        )
+        return jsonify({"response": True,
+                        "message": "添加成功"})
+    except:
+        return jsonify({"response": False,
+                        "message": "添加失败"})
+
 
 
 @app.post("/EditSetting")  # 编辑设置

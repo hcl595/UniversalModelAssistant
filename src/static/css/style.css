@@ -779,7 +779,7 @@ textarea{
   border-radius: 10px;
   background-color: #0c76006b;
 }
-.p_widgets_bzdz{
+.p_widgets_comment, .p_api_comment{
   margin-left: 10px;
 }
 

@@ -185,9 +185,8 @@ function show_api_edit(id) {
     $("#api_add").fadeOut(100)
     $("#api_edit").fadeIn(100)
     var name = $("#api_"+id).attr("api_name")
-    var url = $("#api_"+id).attr("api_url")
+    $("#api_id_edit").val(id)
     $("#api_name_edit").val(name)
-    $("#api_url_edit").val(url)
 }
 
 function show_api_add() {
@@ -529,6 +528,94 @@ function Close_session(id) {
     })
 }
 
+function upload_api_add() {
+    if ($("#api_name_add").val() == ""){
+        alert('内容不能为空',"warning");
+        return;
+    }
+    $.ajax({
+        url: "/AddAPIs",
+        method: "POST",
+        data: {
+            name: $("#api_name_add").val(),
+            url: $("#api_url_add").val(),
+        },
+        success : function(response){
+            if (response.response){
+                alert(response.message,"success") ;
+            }
+            Refresh_Tabs()
+            $("#api_add").fadeOut(100);
+            $("#api_name_add").val("")
+            $("#api_url_add").val("")
+        }
+    })
+}
+
+function upload_api_edit(){
+    if ($('#api_name_edit').val() == ""){
+        alert('内容不能为空',"warning");
+        return;
+    }
+    $.ajax({
+        url: '/editAPIs',
+        type: 'POST',
+        data: {
+            operation: "edit",
+            id: $("#api_id_edit").val(),
+            name: $("#api_name_edit").val(),
+            url: $("#api_url_edit").val(),
+        },
+        success: function(response){
+            if (response.response){
+                alert(response.message,"success")
+                Refresh_Tabs()
+                $("#loading").fadeOut(100)
+            }
+            else{
+                alert(response.message,"danger")
+                $("#loading").fadeOut(100)
+            }
+            load_api()
+            $("#api_edit").fadeOut(100);
+            $("#api_name_edit").val("");
+            $("#api_url_edit").val("");
+        }
+    })
+}
+
+function upload_api_del(){
+    if ($('#api_name_edit').val() == ""){
+        alert('内容不能为空',"warning");
+        return;
+    }
+    $.ajax({
+        url: '/editAPIs',
+        type: 'POST',
+        data: {
+            id: $("#api_id_edit").val(),
+            operation: "del",
+            name: $("#api_name_add").val(),
+            url: $("#api_url_add").val(),
+        },
+        success: function(response){
+            if (response.response){
+                alert(response.message,"success")
+                Refresh_Tabs()
+                $("#loading").fadeOut(100)
+            }
+            else{
+                alert(response.message,"danger")
+                $("#loading").fadeOut(100)
+            }
+            load_api()
+            $("#api_edit").fadeOut(100);
+            $("#api_name_add").val("");
+            $("#api_url_add").val("");
+        }
+    })
+}
+
 //prompt
 function GetPrompts(id){
     var text = $("#user-input-"+id).val();
@@ -559,6 +646,7 @@ function prompts(id){
     $('#user-input-'+source_id).val(""+value)
 }
 
+//model
 function commit_model(operate){
     id = $("#model_id").val()
     if ($('#model_url').val() == "" || $('#Comment').val() == ""){
@@ -671,6 +759,7 @@ function upload_model_add(){
     })
 }
 
+//stream
 function send_input_stream(id) {
     if ($('#user-input-' + id).val() == ""){
         alert('内容不能为空',"warning");

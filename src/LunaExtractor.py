@@ -1,6 +1,7 @@
 import ast
-
+import requests
 import mistune
+# from pathlib import Path
 
 
 def is_valid_python(code):
@@ -24,6 +25,15 @@ def extract_codeblock(markdown: str, *, only_python_code=True) -> list[str]:
 
     # filter out python code
     return [cb for cb in raw_codeblocks if is_valid_python(cb)]
+
+
+def write_pyFile(url: str,path) -> list[str]:
+    response = requests.get(url)
+    codeblocks = extract_codeblock(response.text)
+    with open(path, "a") as f:
+        for cb in codeblocks:
+            f.write(cb + "\n")
+            f.write(f"# {"-"*30}\n\n")
 
 
 if __name__ == "__main__":

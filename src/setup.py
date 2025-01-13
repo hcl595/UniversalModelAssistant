@@ -7,6 +7,7 @@ APP_DIR = Path(__file__).parent
 DATA_DIR = APP_DIR / "data"
 CONFIG_FILE = DATA_DIR / "config.0.4.1.alpha.json"
 LOG_FILE = DATA_DIR / "models.log"
+LUNA_FILE = APP_DIR / "LunaAutoSetup.py"
 
 def setup():
         if not DATA_DIR.exists():

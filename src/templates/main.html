@@ -81,8 +81,8 @@
         <br>
         <h4 style="margin-left: 30px;">添加标签页</h4>
         <br>
-        <p class="p_widgets_bzdz">备注: <input type="name" class="widgets_name" id="session_comment" value="" /></p>
-        <p class="p_widgets_bzdz">模型: 
+        <p class="p_widgets_comment">备注: <input type="name" class="widgets_name" id="session_comment" value="" /></p>
+        <p class="p_widgets_comment">模型: 
         <select id="session_model">
         </select>
         </p>
@@ -199,12 +199,12 @@
                 </div>
             </div>
         </div>
-        <p class="p_widgets_bzdz">备注: <input type="name" class="widgets_name" id="widgets_name_edit" value="" /></p>
-        <p class="p_widgets_bzdz">地址: <input
+        <p class="p_widgets_comment">备注: <input type="name" class="widgets_name" id="widgets_name_edit" value="" /></p>
+        <p class="p_widgets_comment">地址: <input
             type="url" class="widgets_url" id="widgets_url_edit" value="" placeholder="/widgets/your_widgets"
             oninput="preview_widgets('preview_widgets_edit','widgets_url_edit')"
             /></p>
-        <p class="p_widgets_bzdz" style="display: inline-block">是否启用:</p>
+        <p class="p_widgets_comment" style="display: inline-block">是否启用:</p>
         <div class="switch-container" style="display: inline-block">
             <input id="widgets_available_edit" type="hidden" value="True">
             <input id="widgets_available_edit_Checkbox" type="checkbox" class="hidden-checkbox" onclick="switch_load('widgets_available_edit')">
@@ -213,7 +213,7 @@
         </div>
         <br>
         <div>
-            <p class="p_widgets_bzdz">
+            <p class="p_widgets_comment">
             大小: 
             <input type="hidden" id="widgets_contentbox_pre_edit_val" value="" />
             <button id="widgets_contentbox_pre_edit_button_small" class="widgets_size"
@@ -248,12 +248,12 @@
                 </div>
             </div>
             <div style="float: 2;">
-                <p class="p_widgets_bzdz">备注: <input type="name" class="widgets_name" id="widgets_name_add" value="" /></p>
-                <p class="p_widgets_bzdz">地址: <input
+                <p class="p_widgets_comment">备注: <input type="name" class="widgets_name" id="widgets_name_add" value="" /></p>
+                <p class="p_widgets_comment">地址: <input
                     type="url" class="widgets_url" id="widgets_url_add" value="" placeholder="/widgets/your_widgets"
                     oninput="preview_widgets('preview_widgets','widgets_url_add')"
                     /></p>
-                <p class="p_widgets_bzdz" style="display: inline-block">是否启用:</p>
+                <p class="p_widgets_comment" style="display: inline-block">是否启用:</p>
                 <div class="switch-container" style="display: inline-block">
                     <input id="widgets_available_add" type="hidden" value="True">
                     <input id="widgets_available_add_Checkbox" type="checkbox" class="hidden-checkbox" onclick="switch_load('widgets_available_add')">
@@ -262,7 +262,7 @@
                 </div>
                 <br>
                 <div>
-                    <p class="p_widgets_bzdz">
+                    <p class="p_widgets_comment">
                         大小: 
                         <input type="hidden" id="widgets_contentbox_pre_val" value="" />
                         <button id="widgets_contentbox_pre_button_small" class="widgets_size"
@@ -292,8 +292,8 @@
     <div class="api_edit" id="api_edit" style="display: none;">
         <button class="btn" id="api_close_edit"><i class="fa fa-close"></i></button>
         <br>
-        <p class="p_api_bzdz">备注: <input type="name" class="api_name" id="api_name_edit" value="" /></p>
-        <p class="p_api_bzdz">地址: <input
+        <p class="p_api_comment">备注: <input type="name" class="api_name" id="api_name_edit" value="" /></p>
+        <p class="p_api_comment">地址: <input
             type="url" class="api_url" id="api_url_edit" value="" placeholder="https://www.example.com/api/your_api"
             /></p>
         <br>
@@ -306,8 +306,8 @@
         <br>
         <span>
             <div style="float: 2;">
-                <p class="p_api_bzdz">备注: <input type="name" class="api_name" id="api_name_add" value="" /></p>
-                <p class="p_api_bzdz">地址: <input
+                <p class="p_api_comment">备注: <input type="name" class="api_name" id="api_name_add" value="" /></p>
+                <p class="p_api_comment">地址: <input
                     type="url" class="api_url" id="api_url_add" value="" placeholder="http://www.example.com/api/your_api"
                     /></p>
                 <button id="api_close_add_1" class="api_edit_commit deny">取消</button>
