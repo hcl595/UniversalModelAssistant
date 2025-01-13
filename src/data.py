@@ -30,6 +30,9 @@ class Models(BaseModel):
     class Meta:
         table_name = 'models'
 
+class APIs(BaseModel):
+    requestFunctionName = CharField()
+
 class Widgets(BaseModel):
     order = IntegerField(column_name="order", null=True)
     available =  CharField(column_name="available", default="True")
@@ -51,10 +54,10 @@ class Sessions(BaseModel):
     model_type = CharField() #From Models.type
 
 def SetupDatabase():
-    db.create_tables([Models,Widgets,History,Sessions])
+    db.create_tables([Models,Widgets,History,Sessions,APIs])
     BaseModel = Models(
         order=1,
-        type="OpenAI",
+        type="openai",
         name="gpt-3.5-turbo",
         url="https://ai.fakeopen.com/v1",
         api_key="/",
@@ -66,9 +69,13 @@ def SetupDatabase():
         model_id = 1,
         comment = "DefaultSession",
         model_url = "https://ai.fakeopen.com/v1",
-        model_type = "OpenAI",
+        model_type = "openai",
     )
     DefaultSession.save()
+    DefaultAPI = APIs(
+        requestFunctionName = "openai",
+    )
+    DefaultAPI.save()
     BaseWidgets = Widgets(
         order=1,
         widgets_name="内置核心小组件",

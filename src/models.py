@@ -1,7 +1,8 @@
 from data import Models, Sessions, History
 from peewee import fn
-import openai
-from zhipuai import ZhipuAI,ZhipuAIError
+import subprocess
+import psutil
+from concurrent.futures import ProcessPoolExecutor
 from typing import Literal, TypedDict
 import mistune
 import requests
@@ -44,15 +45,29 @@ def request_OpenAI(SessionID: int, Userinput: str,stream: bool = True):
     Userinput 用户输入的内容
     stream    是否需要流式传输
     '''
+    #Setup
+    messages = []
+    response = ""
     if SessionID is None or Userinput is None:
         raise ValueError
-    response = ""
+    
+    #Check lib & auto install
+    try:
+        import openai
+    except ImportError:
+        with ProcessPoolExecutor() as p:
+            try:
+                p.submit(subprocess.run, "pip install "+"openai")
+            except psutil.AccessDenied:
+                raise ImportError("No moduel named"+"openai")
+
+    #Get API KEY
     try:
         Model_ID = Models.get(Models.id == Sessions.get(Sessions.id == SessionID).model_id)
     except:
         raise Models.get.error
-    openai.api_base = (Model_ID.url)
-    messages = []
+
+    #Get history
     for r in History.select().where(History.session_id == SessionID):
         r: History
         assert isinstance(r.UserInput, str)
@@ -61,11 +76,12 @@ def request_OpenAI(SessionID: int, Userinput: str,stream: bool = True):
         response_model: Message = {"role": "assistant", "content": r.response}
         messages.append(question)
         messages.append(response_model)
+
+    #Request ai
     question: Message = {"role": "user", "content": Userinput}
     messages.append(question)
-    openai.api_key = (
-        Model_ID.api_key
-    )
+    openai.api_key = (Model_ID.api_key)
+    openai.api_base = (Model_ID.url)
     for chunk in openai.ChatCompletion.create(
         model=Model_ID.name,
         messages=messages,
@@ -84,6 +100,8 @@ def request_OpenAI(SessionID: int, Userinput: str,stream: bool = True):
                 response = response + chunk.choices[0].delta.content
                 response = mistune.html(response)
             return response
+        
+    #Save conversation
     History.create(
         session_id = SessionID,
         UserInput = Userinput,
@@ -96,15 +114,29 @@ def request_ZhipuAI(SessionID: int, Userinput: str,stream: bool = True):
     Userinput 用户输入的内容
     stream    是否需要流式传输
     '''
+    #Setup
+    messages = []
+    response = ""
     if SessionID is None or Userinput is None:
         raise ValueError
-    response = ""
+    
+    #Check lib & auto install
+    try:
+        from zhipuai import ZhipuAI
+    except ImportError:
+        with ProcessPoolExecutor() as p:
+            try:
+                p.submit(subprocess.run, "pip install "+"zhipuai")
+            except psutil.AccessDenied:
+                raise ImportError("No moduel named"+"zhipuai")
+    
+    #Get API KEY
     try:
         Model_ID = Models.get(Models.id == Sessions.get(Sessions.id == SessionID).model_id)
     except:
         raise Models.get.error
-    ZhipuAI.api_base = (Model_ID.url)
-    messages = []
+
+    #Get Histroy
     for r in History.select().where(History.session_id == SessionID):
         r: History
         assert isinstance(r.UserInput, str)
@@ -113,9 +145,12 @@ def request_ZhipuAI(SessionID: int, Userinput: str,stream: bool = True):
         response_model: Message = {"role": "assistant", "content": r.response}
         messages.append(question)
         messages.append(response_model)
+
+    #Request AI
     question: Message = {"role": "user", "content": Userinput}
     messages.append(question)
     client = ZhipuAI(api_key = Model_ID.api_key)
+    ZhipuAI.api_base = (Model_ID.url)
     for chunk in client.chat.completions.create(
         model=Model_ID.name,
         messages=messages,
@@ -134,6 +169,8 @@ def request_ZhipuAI(SessionID: int, Userinput: str,stream: bool = True):
                 response = response + chunk.choices[0].delta.content
                 response = mistune.html(response)
             return response
+        
+    #Save conversation
     History.create(
         session_id = SessionID,
         UserInput = Userinput,

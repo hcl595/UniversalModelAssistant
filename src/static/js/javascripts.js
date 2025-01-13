@@ -11,13 +11,13 @@ function ChangeToMainA(){
     $("#main-box").fadeIn(200)
 }
 function ChangeToAccA(){
-    $("#account-box").fadeIn(200)
+    $("#model-box").fadeIn(200)
 }
 function ChangeToSetA(){
     $("#setting-box").fadeIn(200)
 }
 function ChangeToMdlA(){
-    $("#models-box").fadeIn(200)
+    $("#api-box").fadeIn(200)
 }
 function ChangeToWdgA(){
     $("#widgets-box").fadeIn(200)
@@ -28,8 +28,8 @@ function ChangeToRtsA(){
 
 function ChangeToMain(){
     $("#login-box").fadeOut(1)
-    $("#account-box").fadeOut(200)
-    $("#models-box").fadeOut(200)
+    $("#model-box").fadeOut(200)
+    $("#api-box").fadeOut(200)
     $("#widgets-box").fadeOut(200)
     $("#setting-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
@@ -45,7 +45,7 @@ function ChangeToMain(){
 function ChangeToAcc(){
     $("#login-box").fadeOut(1)
     $("#main-box").fadeOut(200)
-    $("#models-box").fadeOut(200)
+    $("#api-box").fadeOut(200)
     $("#widgets-box").fadeOut(200)
     $("#setting-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
@@ -61,8 +61,8 @@ function ChangeToAcc(){
 function ChangeToSet(){
     $("#login-box").fadeOut(1)
     $("#main-box").fadeOut(200)
-    $("#account-box").fadeOut(200)
-    $("#models-box").fadeOut(200)
+    $("#model-box").fadeOut(200)
+    $("#api-box").fadeOut(200)
     $("#widgets-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
     setTimeout(ChangeToSetA,250)
@@ -77,7 +77,7 @@ function ChangeToSet(){
 function ChangeToMdl(){
     $("#login-box").fadeOut(1)
     $("#main-box").fadeOut(200)
-    $("#account-box").fadeOut(200)
+    $("#model-box").fadeOut(200)
     $("#widgets-box").fadeOut(200)
     $("#setting-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
@@ -93,8 +93,8 @@ function ChangeToMdl(){
 function ChangeToWdg(){
     $("#login-box").fadeOut(1)
     $("#main-box").fadeOut(200)
-    $("#account-box").fadeOut(200)
-    $("#models-box").fadeOut(200)
+    $("#model-box").fadeOut(200)
+    $("#api-box").fadeOut(200)
     $("#setting-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
     setTimeout(ChangeToWdgA,250)
@@ -181,6 +181,23 @@ function show_session_add() {
     $('#session_add').fadeIn(110)
 }
 
+function show_api_edit(id) {
+    $("#api_add").fadeOut(100)
+    $("#api_edit").fadeIn(100)
+    var name = $("#api_"+id).attr("api_name")
+    var url = $("#api_"+id).attr("api_url")
+    $("#api_name_edit").val(name)
+    $("#api_url_edit").val(url)
+}
+
+function show_api_add() {
+    $("#api_edit").fadeOut(100)
+    $("#api_add").fadeIn(100)
+    $("#api_name").val("")
+    $("#api_url").val("")
+}
+
+
 //版本号
 $(document).ready(function(){
     $("button").click(function(){
@@ -201,7 +218,7 @@ $(document).ready(function(){
     });
     $("#model_close_add").click(function(){
         $("#model_add").fadeOut(100);
-      });
+    });
     $("#model_details_button").click(function(){
         now = $('#model_details').attr('status')
         if (now == "off"){
@@ -224,6 +241,12 @@ $(document).ready(function(){
     });
     $("#session_cancel").click(function(){
         $("#session_add").fadeOut(100);
+    });
+    $("#api_close_add").click(function(){
+        $("#api_add").fadeOut(100);
+    });
+    $("#api_close_edit").click(function(){
+        $("#api_edit").fadeOut(100);
     });
 });
 
@@ -767,6 +790,7 @@ function setup_website(){
     Refresh_ModelList();
     load_active_widgets();
     load_settings();
+    load_api();
     Get_Version();
     hljs.highlightAll();
 }
@@ -1037,6 +1061,31 @@ function load_widgets(){
                     widgets_size="'+ data[i].size +'"\
                     widgets_available="' + data[i].available + '"\
                     onclick="show_widgets_edit('+ data[i].id +')"\
+                    ></i>\
+                </li>\
+                ')
+            }
+        }
+    })
+}
+
+function load_api(){
+    $.ajax({
+        url: "/GetAPIs",
+        method: "POST",
+        success: function(data){
+            $("#api_container").empty()
+            for (i in data){
+                $("#api_container").append('\
+                <li class="ele" draggable="true" id="'+ data[i].id +'">\
+                    <div style="width: 70%;float:left;">\
+                        <span><div class="api_title">'+ data[i].requestFunctionName +'</div></span>\
+                    </div>\
+                    <i class="fa fa-bars"></i>\
+                    <i class="fa fa-info"\
+                    id="api_'+ data[i].id +'"\
+                    api_name="'+ data[i].requestFunctionName +'"\
+                    onclick="show_api_edit('+ data[i].id +')"\
                     ></i>\
                 </li>\
                 ')

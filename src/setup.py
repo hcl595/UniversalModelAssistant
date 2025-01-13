@@ -5,7 +5,7 @@ import json
 
 APP_DIR = Path(__file__).parent
 DATA_DIR = APP_DIR / "data"
-CONFIG_FILE = DATA_DIR / "config.0.3.2.beta.json"
+CONFIG_FILE = DATA_DIR / "config.0.4.1.alpha.json"
 LOG_FILE = DATA_DIR / "models.log"
 
 def setup():
@@ -19,7 +19,7 @@ def setup():
             logger.info("create config.json")
             data = {
                 "package": {
-                    "Version" : "0.3.2.alpha",
+                    "Version" : "0.4.1.alpha",
                 },
                 "BaseConfig": {
                     "Theme": "light",
@@ -46,4 +46,4 @@ def setup():
 
 
 if __name__ == '__main__':
-     setup()
+    setup()

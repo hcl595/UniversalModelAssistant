@@ -17,7 +17,7 @@ from tkinter.filedialog import askopenfilename
 
 import jieba
 import openai
-import zhipuai
+from zhipuai import *
 import psutil
 import validators
 from flask import Flask, stream_with_context, json, jsonify, render_template, request
@@ -28,7 +28,8 @@ from thefuzz import fuzz, process
 from peewee import fn
 
 from config import Prompt, Settings
-from data import History, Models, Widgets, Sessions
+from data import History, Models, Widgets, Sessions, APIs
+from LunaExtractor import extract_codeblock
 from models import *
 
 pool = ThreadPoolExecutor()
@@ -132,7 +133,6 @@ def GetActiveModels():
         ModelList_json = [model_to_dict(Model) for Model in ModelList]
         logger.info("{}", ModelList_json)
         return jsonify(ModelList_json)
-
 
 
 @app.post("/GetModelForSession")
@@ -349,6 +349,56 @@ def EditWidgetsOrder():
     }).where(Widgets.id == request.form.get("id"))
     Temp.execute()
     return jsonify({"response":True,})
+
+@app.post("/GetAPIs")
+def GetAPIs():
+    Apis = APIs.select()
+    APIJson = [model_to_dict(requestFunctionName) for requestFunctionName in Apis]
+    logger.debug(APIJson)
+    return jsonify(APIJson)
+
+
+@app.post("/editAPIs")
+def edit_APIs():
+    APIs_id = request.form.get("id")
+    APIs_name = request.form.get("name")
+    APIs_url = request.form.get("url")
+    response = requests.get(APIs_url)
+    codeblocks = extract_codeblock(response.text)
+    with open("./LunaModels.py", "a") as f:
+        for cb in codeblocks:
+            f.write(cb + "\n")
+            f.write(f"# {"-"*30}\n\n")
+
+    if APIs_id == "-1":
+        try:
+            w = APIs(
+                requestFunctionName = APIs_name,
+            )
+            w.save()
+            return jsonify({"response": True, "message": "添加成功"})
+        except:
+            return jsonify({"response": False, "message": "添加失败"})
+    # else:
+    #     if request.form.get("operation") == "edit":
+    #         try:
+    #             u = Widgets.update({
+    #                 Widgets.widgets_name: widgets_name,
+    #                 Widgets.widgets_url: widgets_url,
+    #                 Widgets.available: available,
+    #                 Widgets.size: widgets_size,
+    #             }).where(Widgets.id == widgets_id)
+    #             u.execute()
+    #             return jsonify({"response": True, "message": "更改成功"})
+    #         except:
+    #             return jsonify({"response": False, "message": "更改失败"})
+    #     elif request.form.get("operation") == "del":
+    #         try:
+    #             w = Widgets.get(Widgets.id == widgets_id)
+    #             w.delete_instance()
+    #             return jsonify({"response": True, "message": "更改成功"})
+    #         except:
+    #             return jsonify({"response": False, "message": "更改失败"})
 
 
 @app.post("/EditSetting")  # 编辑设置

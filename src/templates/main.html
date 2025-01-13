@@ -40,7 +40,7 @@
                 <span>插件中心</span>
             </li>
             <li class="" id="mod" onclick="ChangeToMdl()">
-                <i class="fa fa-inbox" id="models"></i>
+                <i class="fa fa-inbox" id="api"></i>
                 <span>模型安装</span>
             </li>
             <li class="" id="set" onclick="ChangeToSet()">
@@ -93,7 +93,7 @@
     </div>
 </div>
 
-<div class="model_box" id="account-box" style="display: none;">
+<div class="model_box" id="model-box" style="display: none;">
     <h3 style="margin: auto;">模型管理</h3>
     <!-- TODO: Finish Here -->
     <div id="model_container" class="model_container">
@@ -229,7 +229,6 @@
         <button id="widgets_commit_del" class="widgets_edit_commit deny" onclick="upload_widgets_del()" value="">删除</button>
         <button id="widgets_commit_cmt" class="widgets_edit_commit edit"  onclick="upload_widgets_edit()" value="">更新</button>
     </div>
-
     <div class="widgets_edit" id="widgets_add" style="display: none;">
         <button class="btn" id="widgets_close_add"><i class="fa fa-close"></i></button>
         <br>
@@ -282,29 +281,41 @@
     </div>
 </div>
 
-<div class="models" id="models-box" style="display: none;">
-    <div class="card_container">
-        <a href="https://github.com/THUDM/ChatGLM-6B">
-            <div class="card_contentbox">
-                    <h2>ChatGLM-6B</h2>
-                    <p>ChatGLM-6B 是一个开源的、支持中英双语的对话语言模型。更多信息请点击本链接</p>
-            </div>
-        </a>
-
-        <a href="https://www.openai.com/">
-            <div class="card_contentbox">
-                <h2>ChatGPT</h2>
-                <p>ChatGPT是由OpenAI开发的大型语言模型,用于进行自然语言交互。更多信息请点击本链接</p>
-            </div>
-        </a>
-
-        <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">
-            <div class="card_contentbox">
-                <h2>StableDiffusion</h2>
-                <p>Stable Diffusion是一种潜在扩散模型,能够从文本描述中生成详细的图像。更多信息请点击本链接</p>
-            </div>
-        </a>
+<div class="models" id="api-box" style="display: none;">
+    <h3 style="margin: auto;">接口管理</h3>
+    <!-- TODO: Finish Here -->
+    <div class="api_container">
+        <ul id="api_container">
+        </ul>
+        <button class="btn_expand" onclick="show_api_add()"><i class="fa fa-plus"></i></button>
     </div>
+    <div class="api_edit" id="api_edit" style="display: none;">
+        <button class="btn" id="api_close_edit"><i class="fa fa-close"></i></button>
+        <br>
+        <p class="p_api_bzdz">备注: <input type="name" class="api_name" id="api_name_edit" value="" /></p>
+        <p class="p_api_bzdz">地址: <input
+            type="url" class="api_url" id="api_url_edit" value="" placeholder="https://www.example.com/api/your_api"
+            /></p>
+        <br>
+        <input type="hidden" id="api_id_edit" value=""/>
+        <button id="api_commit_del" class="api_edit_commit deny" onclick="upload_api_del()" value="">删除</button>
+        <button id="api_commit_cmt" class="api_edit_commit edit"  onclick="upload_api_edit()" value="">更新</button>
+    </div>
+    <div class="api_edit" id="api_add" style="display: none;">
+        <button class="btn" id="api_close_add"><i class="fa fa-close"></i></button>
+        <br>
+        <span>
+            <div style="float: 2;">
+                <p class="p_api_bzdz">备注: <input type="name" class="api_name" id="api_name_add" value="" /></p>
+                <p class="p_api_bzdz">地址: <input
+                    type="url" class="api_url" id="api_url_add" value="" placeholder="http://www.example.com/api/your_api"
+                    /></p>
+                <button id="api_close_add_1" class="api_edit_commit deny">取消</button>
+                <button id="api_edit" class="api_edit_commit run" onclick="upload_api_add()">提交</button>
+            </div>
+        </span>
+    </div>
+    <!-- TODO: Finish Here -->
 </div>
 
 <div class="settings" id="setting-box" style="display: none;">

@@ -1,0 +1,16 @@
+{
+    "package": {
+        "Version": "0.4.1.alpha"
+    },
+    "BaseConfig": {
+        "Theme": "light",
+        "Develop": "False",
+        "ActiveExamine": "True",
+        "TimeOut": 60,
+        "Language": "Chinese"
+    },
+    "RemoteConfig": {
+        "Host": "127.0.0.1",
+        "Port": "0"
+    }
+}

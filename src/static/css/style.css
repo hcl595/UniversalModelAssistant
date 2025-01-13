@@ -559,7 +559,9 @@ textarea{
   height: 100vh;
   min-width: 60%;
   max-width: 100%;
+  display: flex;
   overflow: hidden;
+  flex-flow: column;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   background: rgba(230, 235, 240, .3);
@@ -647,7 +649,7 @@ textarea{
 
 /* Widgets */
 
-.widgets_container {
+.widgets_container, .api_container{
   max-width: 100%;
   max-height: 95vh;
   min-height: 90vh;
@@ -657,10 +659,10 @@ textarea{
   overflow: auto;
   float: right;
 }
-.widgets_container:first-child{
+.widgets_container:first-child, .api_container:first-child{
   margin-top: 30px;
 }
-.widgets_container:last-child {
+.widgets_container:last-child, .api_container:last-child {
   margin-bottom: 30px;
 }
 .widgets_contentbox {
@@ -722,14 +724,14 @@ textarea{
 .widgets_edit .widgets_contentbox {
   left: 150px;
 }
-.widgets_name{
+.widgets_name, .model_name_edit, .api_name, .model_key_add, .model_key_edit{
   margin-left: 10px;
   border-radius: 5px;
   width: 500px;
   border: none;
   background-color: #738a8a1f;
 }
-.widgets_url{
+.widgets_url, .model_url_edit, .api_url{
   margin-left: 10px;
   border-radius: 5px;
   width: 500px;
@@ -746,7 +748,7 @@ textarea{
   font-size: 11px;
   height: 10px;
 }
-.widgets_edit {
+.widgets_edit, .api_edit {
   background: #ffffff70;
   backdrop-filter: blur(500px);
   -webkit-backdrop-filter: blur(18px);
@@ -805,7 +807,7 @@ textarea{
   border-radius: 12px;
 }
 /* 拖拽 */
-.light .widgets_container ul {
+.light .widgets_container ul, .api_container ul {
   border-radius: 15px;
   margin-block-start: 0;
   margin-block-end: 0;
@@ -814,7 +816,7 @@ textarea{
   padding-inline-start: 0;
   width: 80%;
 }
-.light .widgets_container li {
+.light .widgets_container li, .api_container li {
   height: 50px;
   line-height: 50px;
   border: 1px solid #aaaaaa;
@@ -822,7 +824,7 @@ textarea{
   width: 100%;
   padding: 0 10px;
 }
-.light .widgets_container li i {
+.light .widgets_container  li i, .api_container li i {
   float: right;
   margin-top: 5px;
   margin-left: 10px;
@@ -861,7 +863,7 @@ textarea{
   border-radius: 12px;
 }
 /* 拖拽 */
-.dark .widgets_container ul {
+.dark .widgets_container ul, .dark .api_container ul {
   border-radius: 15px;
   margin-block-start: 0;
   margin-block-end: 0;
@@ -870,7 +872,7 @@ textarea{
   padding-inline-start: 0;
   width: 80%;
 }
-.dark .widgets_container li {
+.dark .widgets_container li, .dark .api_container li {
   height: 50px;
   line-height: 50px;
   border: 1px solid rgba(230, 235, 240, .3);
@@ -880,7 +882,7 @@ textarea{
   padding: 0 10px;
 }
 
-.dark .widgets_container li i {
+.dark .widgets_container li, .dark .api_container li i {
   float: right;
   margin-top: 5px;
   margin-left: 10px;
@@ -888,7 +890,7 @@ textarea{
   font-size: 30px;
 }
 
-.dark .widgets_edit_commit {
+.dark .widgets_edit_commit, .dark .api_edit_commit {
   width: 560px;
   margin-left: 20px;
   margin-bottom: 10px;
