@@ -29,7 +29,7 @@ from peewee import fn
 
 from config import Prompt, Settings
 from data import History, Models, Widgets, Sessions, APIs
-from LunaExtractor import extract_codeblock, write_pyFile
+from LunaExtractor import write_pyFile
 from models import *
 
 pool = ThreadPoolExecutor()
@@ -62,7 +62,6 @@ def root():
 def request_models_stream():
     InputInfo = request.form.get("userinput")
     InputModel = request.form["modelinput"]
-    print(InputModel,InputInfo)
     if Models.get(Models.id == Sessions.get(Sessions.id == InputModel).model_id).type == "OpenAI":
         try:
             Model_response = request_OpenAI(SessionID=InputModel, Userinput=InputInfo, stream=True)
