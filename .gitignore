@@ -190,3 +190,4 @@ output/
 src/test.py
 packages/
 src_macOS/
+src/LunaAutoSetup.py
