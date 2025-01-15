@@ -21,6 +21,7 @@ from zhipuai import *
 import psutil
 import validators
 from flask import Flask, stream_with_context, json, jsonify, render_template, request
+from flask_socketio import SocketIO
 from flaskwebgui import FlaskUI
 from loguru import logger
 from playhouse.shortcuts import model_to_dict
@@ -29,7 +30,7 @@ from peewee import fn
 
 from config import Prompt, Settings
 from data import History, Models, Widgets, Sessions, APIs
-from LunaExtractor import write_pyFile
+# from LunaExtractor import extract_codeblock, write_pyFile
 from models import *
 
 pool = ThreadPoolExecutor()
@@ -385,7 +386,7 @@ def edit_APIs():
 def add_APIs():
     APIName = request.form.get("name")
     APIUrl = request.form.get("url")
-    write_pyFile(APIUrl,LUNA_FILE)
+    # write_pyFile(APIUrl,LUNA_FILE)
     try:
         APIs.create(
             requestFunctionName = APIName,

@@ -2,7 +2,6 @@ from widgets import widgets_blue
 import psutil
 from flask import render_template, jsonify
 
-
 # //////////// Put Your Wigets Here //////////////////
 
 

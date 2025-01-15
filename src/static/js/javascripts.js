@@ -8,18 +8,24 @@ function focus_input(id){
 }
 
 function ChangeToMainA(){
+    Refresh_Tabs()
+    load_active_widgets()
     $("#main-box").fadeIn(200)
 }
-function ChangeToAccA(){
+function ChangeToModelA(){
+    Refresh_ModelList()
     $("#model-box").fadeIn(200)
 }
 function ChangeToSetA(){
+    load_settings()
     $("#setting-box").fadeIn(200)
 }
-function ChangeToMdlA(){
+function ChangeToAPIA(){
+    load_api()
     $("#api-box").fadeIn(200)
 }
 function ChangeToWdgA(){
+    load_widgets()
     $("#widgets-box").fadeIn(200)
 }
 function ChangeToRtsA(){
@@ -49,7 +55,7 @@ function ChangeToAcc(){
     $("#widgets-box").fadeOut(200)
     $("#setting-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
-    setTimeout(ChangeToAccA,250)
+    setTimeout(ChangeToModelA,250)
     $("#main").removeClass("active")
     $("#acc").addClass("active")
     $("#wig").removeClass("active")
@@ -81,7 +87,7 @@ function ChangeToMdl(){
     $("#widgets-box").fadeOut(200)
     $("#setting-box").fadeOut(200)
     $("#rights-box").fadeOut(200)
-    setTimeout(ChangeToMdlA,250)
+    setTimeout(ChangeToAPIA,250)
     $("#main").removeClass("active")
     $("#acc").removeClass("active")
     $("#wig").removeClass("active")
@@ -865,22 +871,12 @@ $(document).ready(function() {
 
 // Refresh Data
 function refresh_website(){
-    Refresh_ModelList();
-    Refresh_Tabs();
-    load_active_widgets();
-    load_widgets();
-    load_settings();
+    Refresh_Tabs()
     hljs.highlightAll();
 }
 
 function setup_website(){
-    Refresh_Tabs();
-    load_widgets();
-    Refresh_ModelList();
-    load_active_widgets();
-    load_settings();
-    load_api();
-    Get_Version();
+    Refresh_Tabs()
     hljs.highlightAll();
 }
 
